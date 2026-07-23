@@ -1,0 +1,12 @@
+#!/usr/bin/env bash
+# Idempotent bootstrap: install gems if missing, create/migrate the database,
+# and seed the demo flash sale. Used by docker-compose and CI alike.
+set -euo pipefail
+cd "$(dirname "$0")/.."
+
+bundle check > /dev/null 2>&1 || bundle install --jobs 4
+
+bin/rails db:prepare
+bin/rails db:seed
+
+echo "Setup complete."
