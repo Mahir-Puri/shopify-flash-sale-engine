@@ -49,6 +49,9 @@ jobs:
       - name: Install gems
         run: bundle install --jobs 4
 
+      - name: Fix binstub permissions
+        run: chmod +x bin/rails bin/rake bin/setup
+
       - name: Prepare database
         run: bin/rails db:prepare
 
